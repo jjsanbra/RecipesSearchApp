@@ -1,5 +1,12 @@
 # RecipesSearchApp
 
+Demo site to test develop an application thats use the RecipePuppy.com API.
+
+Frameworks used:
+- Angular 8
+- Bootstrap 4
+- Materialize
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
 
 ## Development server

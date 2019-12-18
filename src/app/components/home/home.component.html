@@ -1,1 +1,22 @@
-<h2>Wellcome to your recipes finder</h2>
+<section class="row">
+    <div class="col-12 my-5 text-center">
+        <h2>Wellcome to your recipes finder</h2>
+        <h4 class="light mt-4">Find delicious breakfast, meals, dinner,<br>to share special moments with your family or friends</h4>
+        
+        <!-- <form class="row mt-5" [formGroup]="recipesSearchForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="col-12 mt-5">
+                <input matInput type="text" placeholder="Search by one o more ingredients separated by a comma" name="ingredients" formControlName="ingredients">
+            </mat-form-field>
+        
+            <button mat-flat-button color="primary" class="my-4 mx-3" type="submit" [disabled]="!recipesSearchForm.valid">{{ 'tags-management.searchButton' | translate }}</button>
+        </form> -->
+
+        <form class="row mt-5 align-items-center justify-content-center" [formGroup]="recipesSearchForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="col-10" appearance="outline">
+                <mat-label>Search by one o more ingredients</mat-label>
+                <input matInput type="text" placeholder="For more than one ingredient please write separated by a comma" name="ingredients" formControlName="ingredients">
+            </mat-form-field>        
+            <button mat-icon-button color="accent" type="submit"><mat-icon matSuffix>search</mat-icon></button>
+        </form>
+    </div>
+</section>

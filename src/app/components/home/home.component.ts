@@ -14,14 +14,16 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 export class HomeComponent implements OnInit {
   public recipesSearchForm: FormGroup;
   public submitedForm: boolean;
-  public recipes: any;
+  public recipesFeatured: any;
+  public recipesFinded: any;
 
   constructor(
     private recipeService: RecipesService,
     private formBuilder: FormBuilder,
     private spinner: SpinnerService
   ) {
-    this.recipes = [];
+    this.recipesFeatured = [];
+    this.recipesFinded = [];
     this.getRecipes();
     this.spinner.spin$.next( true );
    }
@@ -35,9 +37,9 @@ export class HomeComponent implements OnInit {
     this.recipeService.getAll()
       .subscribe(
         ( data ) => {
-          this.recipes = data.body;
+          this.recipesFeatured = data.body;
           this.spinner.spin$.next( false );
-          console.log( 'Recipes founded => ' , this.recipes );
+          console.log( 'Recipes founded => ' , this.recipesFeatured );
         },
         ( error ) => {
           console.error( 'ERROR: ' , error );
@@ -49,13 +51,6 @@ export class HomeComponent implements OnInit {
     this.recipesSearchForm = this.formBuilder.group({
       ingredients: [ '', [] ]
     });
-  }
-
-  private updateRecipesSearchForm(): IRecipeModel {
-    return {
-      ...new RecipeModel(),
-      ingredients: this.recipesSearchForm.get(['ingredients']).value
-    };
   }
 
   public onSubmit() {
@@ -70,7 +65,7 @@ export class HomeComponent implements OnInit {
   private setSearchRecipes() {
     this.spinner.spin$.next( true );
     this.submitedForm = true;
-    const search = this.updateRecipesSearchForm();
+    const search = this.recipesSearchForm.get(['ingredients']).value;
     this.subscribeToSearchRecipesResponse( this.recipeService.getByIngredients( search ) );
   }
 
@@ -88,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   protected onSendSuccess( data: any ) {
     this.spinner.spin$.next( false );
-    this.recipes = data;
+    this.recipesFinded = data;
     this.submitedForm = false;
     console.log( 'Sended => ' , data );
   }

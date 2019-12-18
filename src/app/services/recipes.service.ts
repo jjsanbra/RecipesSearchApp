@@ -23,8 +23,7 @@ export class RecipesService {
     return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }`, { params: options,  observe: 'response' });
   }
 
-  public getByIngredients( req?: any ): Observable<EntityArrayResponseRecipeType> {
-    const options = createRequestOption( req );
-    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }`, { params: options,  observe: 'response' });
+  public getByIngredients( req?: any ): Observable<any> {
+    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }/?q=&i=${req}&p=1`, { observe: 'response' });
   }
 }

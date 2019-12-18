@@ -7,6 +7,7 @@ import { MaterialModule } from '../shared/material-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipesService } from 'src/app/services/recipes.service';
+import { MatSpinner } from '@angular/material';
 
 
 @NgModule({
@@ -21,6 +22,8 @@ import { RecipesService } from 'src/app/services/recipes.service';
   ],
   providers: [
     RecipesService
-  ]
+  ],
+  entryComponents: [ MatSpinner ],
+  exports: [ MatSpinner ]
 })
 export class HomeModule { }

@@ -16,6 +16,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { MaterialModule } from './components/shared/material-module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MatSpinner } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     NgbModule
   ],
   providers: [],
+  entryComponents: [ MatSpinner ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

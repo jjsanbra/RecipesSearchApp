@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { IRecipeModel, RecipeModel } from 'src/app/models/recipes';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private recipeService: RecipesService,
-    private formBuilder: FormBuilder
-    // private spinner: SpinnerService
+    private formBuilder: FormBuilder,
+    private spinner: SpinnerService
   ) {
     this.recipes = [];
     this.getRecipes();
+    this.spinner.spin$.next( true );
    }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         ( data ) => {
           this.recipes = data.body;
-          // this.spinner.spin$.next( false );
+          this.spinner.spin$.next( false );
           console.log( 'Recipes founded => ' , this.recipes );
         },
         ( error ) => {
@@ -45,7 +47,7 @@ export class HomeComponent implements OnInit {
 
   private createRecipesSearchForm() {
     this.recipesSearchForm = this.formBuilder.group({
-      ingredients: [ '',[] ]
+      ingredients: [ '', [] ]
     });
   }
 
@@ -66,7 +68,7 @@ export class HomeComponent implements OnInit {
   }
 
   private setSearchRecipes() {
-    // this.spinner.spin$.next( true );
+    this.spinner.spin$.next( true );
     this.submitedForm = true;
     const search = this.updateRecipesSearchForm();
     this.subscribeToSearchRecipesResponse( this.recipeService.getByIngredients( search ) );
@@ -84,15 +86,15 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  protected onSendSuccess( data ) {
-    // this.spinner.spin$.next( false );
+  protected onSendSuccess( data: any ) {
+    this.spinner.spin$.next( false );
     this.recipes = data;
     this.submitedForm = false;
     console.log( 'Sended => ' , data );
   }
 
-  protected onSendError( result ) {
-    // this.spinner.spin$.next( false );
+  protected onSendError( result: any ) {
+    this.spinner.spin$.next( false );
     this.submitedForm = false;
     console.log( 'Error => ' , result );
   }

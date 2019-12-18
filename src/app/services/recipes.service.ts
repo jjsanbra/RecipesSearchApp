@@ -23,7 +23,7 @@ export class RecipesService {
     return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }`, { params: options,  observe: 'response' });
   }
 
-  public getByIngredients( req?: any ): Observable<any> {
-    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }/?q=&i=${req}&p=1`, { observe: 'response' });
+  public getByIngredients( ingredients?: any, searchText?: string, page?: any ): Observable<any> {
+    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }/?q=${searchText}&i=${ingredients}&p=${page}`, { observe: 'response' });
   }
 }

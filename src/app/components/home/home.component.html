@@ -10,13 +10,19 @@
             <button mat-icon-button color="accent" type="submit"><mat-icon matSuffix>search</mat-icon></button>
         </form>
     </div>
-    <div class="col-12 my-5" *ngIf="recipesFinded.length !== 0">
+    <div class="col-12 my-5 alert alert-success" *ngIf="recipesFinded.length !== 0">
         <h3 class="text-center">Recipes Finded</h3>
+        <h4 class="text-center light mb-5" *ngIf="recipesFinded.results.length !== 0">
+            You have found {{ recipesFinded.results.length }} results with the indicated words
+        </h4>
+        <h4 class="alert alert-info text-center light mb-5" *ngIf="recipesFinded.results.length === 0">
+            We are sorry, but we have not found results with the words indicated :(
+        </h4>
         <div class="recipes-featured-list row">
             <div class="col-sm-6 col-md-4" *ngFor="let recipe of recipesFinded.results">
                 <div class="card mb-3">
                     <div class="row no-gutters justify-content-center">
-                        <img src="{{ recipe.thumbnail }}" class="img-thumbnail mt-3 " alt="{{ recipe.title }}">
+                        <img src="{{ recipe.thumbnail }}" class="img-thumbnail mt-5" alt="{{ recipe.title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ recipe.title }}</h5>
                             <p class="card-text">Ingredients: {{ recipe.ingredients }}</p>
@@ -28,12 +34,12 @@
         </div>
     </div>
     <div class="col-12 my-5">
-        <h3 class="text-center">Featured Recipes</h3>
+        <h3 class="text-center mb-5">Featured Recipes</h3>
         <div class="recipes-featured-list row">
             <div class="col-sm-6 col-md-4" *ngFor="let recipe of recipesFeatured.results">
                 <div class="card mb-3">
                     <div class="row no-gutters justify-content-center">
-                        <img src="{{ recipe.thumbnail }}" class="img-thumbnail mt-3 " alt="{{ recipe.title }}">
+                        <img src="{{ recipe.thumbnail }}" class="img-thumbnail mt-5" alt="{{ recipe.title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ recipe.title }}</h5>
                             <p class="card-text">Ingredients: {{ recipe.ingredients }}</p>

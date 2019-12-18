@@ -65,8 +65,10 @@ export class HomeComponent implements OnInit {
   private setSearchRecipes() {
     this.spinner.spin$.next( true );
     this.submitedForm = true;
-    const search = this.recipesSearchForm.get(['ingredients']).value;
-    this.subscribeToSearchRecipesResponse( this.recipeService.getByIngredients( search ) );
+    const ingredients = this.recipesSearchForm.get(['ingredients']).value;
+    const searchText = '';
+    const page = 1;
+    this.subscribeToSearchRecipesResponse( this.recipeService.getByIngredients( ingredients, searchText, page ) );
   }
 
   protected subscribeToSearchRecipesResponse( result: Observable<HttpResponse<IRecipeModel[]>> ) {

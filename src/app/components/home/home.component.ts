@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private recipeService: RecipesService,
     private formBuilder: FormBuilder
     // private spinner: SpinnerService
-  ) { 
+  ) {
     this.recipes = [];
     this.getRecipes();
    }
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   private createRecipesSearchForm() {
     this.recipesSearchForm = this.formBuilder.group({
-      ingredients: [ null ]
+      ingredients: [ '',[] ]
     });
   }
 

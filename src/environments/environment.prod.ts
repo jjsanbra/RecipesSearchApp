@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://www.recipepuppy.com/api'
+  API_URL: 'http://www.recipepuppy.com/api'
 };

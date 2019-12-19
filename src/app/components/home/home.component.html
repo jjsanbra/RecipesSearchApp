@@ -1,1 +1,55 @@
-<h2>Wellcome to your recipes finder</h2>
+<section class="row">
+    <div class="col-12 my-5 text-center">
+        <h2>Wellcome to your recipes finder</h2>
+        <h4 class="light mt-4">Find delicious breakfast, meals, dinner,<br>to share special moments with your family or friends</h4>
+        <form class="row mt-5 align-items-center justify-content-center" [formGroup]="recipesSearchForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="col-10" appearance="outline">
+                <mat-label>Search by keyword</mat-label>
+                <input matInput type="text" placeholder="For more than one ingredient please write separated by a comma" name="searchText" formControlName="searchText">
+            </mat-form-field>        
+            <button mat-icon-button color="accent" type="submit"><mat-icon matSuffix>search</mat-icon></button>
+        </form>
+    </div>
+    <div class="col-12 my-5 alert" [ngClass]="recipesFinded.length !== 0 ? 'alert-success' : 'alert-warning'" *ngIf="recipesFinded.length !== 0">
+        <h3 class="text-center mt-5">Recipes Finded</h3>
+        <h4 class="text-center light mb-5" *ngIf="recipesFinded.length !== 0">
+            You have found {{ recipesFinded.length }} results with the indicated words
+        </h4>
+        <h4 class="text-center light mb-5" *ngIf="recipesFinded.length === 0">
+            We are sorry, but we have not found results with the words indicated :(
+        </h4>
+        <div class="recipes-featured-list row">
+            <div class="col-sm-6 col-lg-4" *ngFor="let recipe of recipesFinded">
+                <div class="card mb-3">
+                    <div class="row no-gutters justify-content-center">
+                        <img [src]="recipe.thumbnail ? recipe.thumbnail : 'assets/images/placeholder.jpg'" class="img-thumbnail mt-5" alt="{{ recipe.title }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <p class="card-text mb-0"><strong>Ingredients</strong></p>
+                            <p class="card-text mt-1">{{ recipe.ingredients }}</p>
+                            <app-dialog [title]="recipe.title" [href]="recipe.href"></app-dialog>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 my-5">
+        <h3 class="text-center mb-5">Featured Recipes</h3>
+        <div class="recipes-featured-list row">
+            <div class="col-sm-6 col-lg-4" *ngFor="let recipe of recipesFeatured.results">
+                <div class="card mb-3">
+                    <div class="row no-gutters justify-content-center">
+                        <img [src]="recipe.thumbnail ? recipe.thumbnail : 'assets/images/placeholder.jpg'" class="img-thumbnail mt-5" alt="{{ recipe.title }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <p class="card-text mb-0"><strong>Ingredients</strong></p>
+                            <p class="card-text mt-1">{{ recipe.ingredients }}</p>
+                            <app-dialog [title]="recipe.title" [href]="recipe.href"></app-dialog>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

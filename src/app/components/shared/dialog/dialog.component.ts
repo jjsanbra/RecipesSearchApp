@@ -23,7 +23,6 @@ export class DialogComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open( DialogOverviewComponent, {
-      width: '50vw',
       data: {
         title: this.titleParent,
         url: this.href

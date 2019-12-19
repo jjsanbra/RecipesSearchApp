@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IRecipeModel } from '../models/recipes';
+import { IQueryModel, QueryModel } from '../models/query.model';
 import { environment } from 'src/environments/environment';
 import { createRequestOption } from '../utils/request-util';
+import { IRecipeModel } from '../models/recipe.model';
+import { map } from 'rxjs/operators';
 
-type EntityArrayResponseRecipeType = HttpResponse<IRecipeModel[]>;
+type EntityArrayResponseRecipeType = HttpResponse<IQueryModel[]>;
 
 
 @Injectable({
@@ -18,12 +20,19 @@ export class RecipesService {
     protected http: HttpClient
   ) { }
 
-  public getAll( req?: any ): Observable<EntityArrayResponseRecipeType> {
-    const options = createRequestOption( req );
-    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }`, { params: options,  observe: 'response' });
+  public getAll(): Observable<EntityArrayResponseRecipeType> {
+    return this.http.get<IQueryModel[]>( `${ this.resourceUrl }`, { observe: 'response' });
   }
 
-  public getByIngredients( ingredients?: any, searchText?: string, page?: any ): Observable<any> {
-    return this.http.get<IRecipeModel[]>( `${ this.resourceUrl }/?q=${searchText}&i=${ingredients}&p=${page}`, { observe: 'response' });
+  public getBySearchText( searchText: string ): Observable<any> {
+    return this.http.get<IQueryModel[]>( `${ this.resourceUrl }/?q=${searchText}`, { observe: 'response' });
+  }
+
+  public getByIngredients( ingredients: any ): Observable<any> {
+    return this.http.get<IQueryModel[]>( `${ this.resourceUrl }/?i=${ingredients}`, { observe: 'response' });
+  }
+
+  public getByPage( page: any ): Observable<any> {
+    return this.http.get<IQueryModel[]>( `${ this.resourceUrl }/?p=${page}`, { observe: 'response' });
   }
 }

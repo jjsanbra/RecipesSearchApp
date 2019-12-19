@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { IRecipeModel } from 'src/app/models/recipes';
+import { IQueryModel } from 'src/app/models/query.model';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { SpinnerService } from 'src/app/services/spinner.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { IRecipeModel } from 'src/app/models/recipe.model';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +16,13 @@ export class HomeComponent implements OnInit {
   public recipesSearchForm: FormGroup;
   public submitedForm: boolean;
   public recipesFeatured: any;
-  public recipesFinded: any;
+  public recipesFinded: IRecipeModel[];
   public urlTest: any;
 
   constructor(
     private recipeService: RecipesService,
     private formBuilder: FormBuilder,
-    private spinner: SpinnerService,
-    private sanitize: DomSanitizer
+    private spinner: SpinnerService
   ) {
     this.recipesFeatured = [];
     this.recipesFinded = [];
@@ -52,7 +51,7 @@ export class HomeComponent implements OnInit {
 
   private createRecipesSearchForm() {
     this.recipesSearchForm = this.formBuilder.group({
-      ingredients: [ '', [] ]
+      searchText: [ '', [] ]
     });
   }
 
@@ -68,13 +67,12 @@ export class HomeComponent implements OnInit {
   private setSearchRecipes() {
     this.spinner.spin$.next( true );
     this.submitedForm = true;
-    const ingredients = this.recipesSearchForm.get(['ingredients']).value;
-    const searchText = '';
-    const page = 1;
-    this.subscribeToSearchRecipesResponse( this.recipeService.getByIngredients( ingredients, searchText, page ) );
+    const searchText = this.recipesSearchForm.get(['searchText']).value;
+    console.log( searchText );
+    this.subscribeToSearchRecipesResponse( this.recipeService.getBySearchText( searchText ) );
   }
 
-  protected subscribeToSearchRecipesResponse( result: Observable<HttpResponse<IRecipeModel[]>> ) {
+  protected subscribeToSearchRecipesResponse( result: Observable<HttpResponse<IQueryModel[]>> ) {
     result.subscribe(
       ( data: any ) => {
         console.log( 'Success =>' , data );
@@ -88,7 +86,7 @@ export class HomeComponent implements OnInit {
 
   protected onSendSuccess( data: any ) {
     this.spinner.spin$.next( false );
-    this.recipesFinded = data;
+    this.recipesFinded = data.results;
     this.submitedForm = false;
     console.log( 'Sended => ' , data );
   }

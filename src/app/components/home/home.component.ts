@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { IRecipeModel, RecipeModel } from 'src/app/models/recipes';
+import { IRecipeModel } from 'src/app/models/recipes';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,13 @@ export class HomeComponent implements OnInit {
   public submitedForm: boolean;
   public recipesFeatured: any;
   public recipesFinded: any;
+  public urlTest: any;
 
   constructor(
     private recipeService: RecipesService,
     private formBuilder: FormBuilder,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private sanitize: DomSanitizer
   ) {
     this.recipesFeatured = [];
     this.recipesFinded = [];

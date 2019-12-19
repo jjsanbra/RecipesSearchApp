@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content class="text-center">
+  <h4 class="mb-3">Here is the link to see the recipe</h4>
+  <a mat-button color="accent" class="btn mb-1" href="{{ data.url }}" target="_blank"><mat-icon matSuffix>link</mat-icon> Go to Recipe</a>
+</div>
+<div mat-dialog-actions class="mt-3 mb-0 float-right">
+  <button mat-button class="btn btn-primary" (click)="onNoClick()">Close</button>
+</div>

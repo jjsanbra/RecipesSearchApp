@@ -8,10 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { MatSpinner } from '@angular/material';
+import { DialogComponent, DialogOverviewComponent } from '../shared/dialog/dialog.component';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [
+    HomeComponent,
+    DialogComponent,
+    DialogOverviewComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -23,7 +28,13 @@ import { MatSpinner } from '@angular/material';
   providers: [
     RecipesService
   ],
-  entryComponents: [ MatSpinner ],
-  exports: [ MatSpinner ]
+  entryComponents: [
+    MatSpinner,
+    DialogComponent,
+    DialogOverviewComponent
+  ],
+  exports: [
+    MatSpinner
+  ]
 })
 export class HomeModule { }

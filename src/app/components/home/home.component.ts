@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         ( data ) => {
           this.recipesFeatured = data.body;
           this.spinner.spin$.next( false );
-          console.log( 'Recipes founded => ' , this.recipesFeatured );
+          // console.log( 'Recipes founded => ' , this.recipesFeatured );
         },
         ( error ) => {
           console.error( 'ERROR: ' , error );
@@ -68,18 +68,18 @@ export class HomeComponent implements OnInit {
     this.spinner.spin$.next( true );
     this.submitedForm = true;
     const searchText = this.recipesSearchForm.get(['searchText']).value;
-    console.log( searchText );
+    // console.log( searchText );
     this.subscribeToSearchRecipesResponse( this.recipeService.getBySearchText( searchText ) );
   }
 
   protected subscribeToSearchRecipesResponse( result: Observable<HttpResponse<IQueryModel[]>> ) {
     result.subscribe(
       ( data: any ) => {
-        console.log( 'Success =>' , data );
+        // console.log( 'Success =>' , data );
         this.onSendSuccess( data.body );
       },
       ( data: any ) => {
-        console.log( 'Error =>' , data );
+        // console.log( 'Error =>' , data );
         this.onSendError( data.body );
       });
   }
@@ -88,13 +88,13 @@ export class HomeComponent implements OnInit {
     this.spinner.spin$.next( false );
     this.recipesFinded = data.results;
     this.submitedForm = false;
-    console.log( 'Sended => ' , data );
+    // console.log( 'Sended => ' , data );
   }
 
   protected onSendError( result: any ) {
     this.spinner.spin$.next( false );
     this.submitedForm = false;
-    console.log( 'Error => ' , result );
+    // console.log( 'Error => ' , result );
   }
 
 }
